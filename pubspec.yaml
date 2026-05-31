@@ -1,5 +1,5 @@
 name: uscis_tracker
-description: A new Flutter project.
+description: A private USCIS case tracking app for iOS and web.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -135,4 +135,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-

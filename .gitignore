@@ -1,0 +1,28 @@
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+
+# Local editor and OS files
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Flutter and platform-generated local files
+android/.gradle/
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/local.properties
+ios/.generated/
+ios/Flutter/ephemeral/
+ios/Pods/
+macos/Flutter/ephemeral/
+
+# Codex local run logs
+.codex/

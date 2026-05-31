@@ -1,13 +1,7 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
-
-const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
 /// Start Online Lawyer Chat API Group Code
 
@@ -95,7 +89,21 @@ class GetstatusCall {
 }
 
 class UscisTokenCall {
+  static const _clientId = String.fromEnvironment('USCIS_CLIENT_ID');
+  static const _clientSecret = String.fromEnvironment('USCIS_CLIENT_SECRET');
+
   static Future<ApiCallResponse> call() async {
+    if (_clientId.isEmpty || _clientSecret.isEmpty) {
+      return const ApiCallResponse(
+        {
+          'error':
+              'USCIS API credentials are not configured. Use a private backend proxy for production refresh.',
+        },
+        {},
+        400,
+      );
+    }
+
     return ApiManager.instance.makeApiCall(
       callName: 'UscisToken',
       apiUrl: 'https://api-int.uscis.gov/oauth/accesstoken',
@@ -105,8 +113,8 @@ class UscisTokenCall {
       },
       params: {
         'grant_type': "client_credentials",
-        'client_id': "v7OFMOGLm9mfLXYz5mwnt9Sg15zCUri5",
-        'client_secret': "PkWZwFAxx9IVY8fK",
+        'client_id': _clientId,
+        'client_secret': _clientSecret,
       },
       bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
       returnBody: true,
@@ -139,32 +147,4 @@ class ApiPagingParams {
   @override
   String toString() =>
       'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
-}
-
-String _toEncodable(dynamic item) {
-  return item;
-}
-
-String _serializeList(List? list) {
-  list ??= <String>[];
-  try {
-    return json.encode(list, toEncodable: _toEncodable);
-  } catch (_) {
-    if (kDebugMode) {
-      print("List serialization failed. Returning empty list.");
-    }
-    return '[]';
-  }
-}
-
-String _serializeJson(dynamic jsonVar, [bool isList = false]) {
-  jsonVar ??= (isList ? [] : {});
-  try {
-    return json.encode(jsonVar, toEncodable: _toEncodable);
-  } catch (_) {
-    if (kDebugMode) {
-      print("Json serialization failed. Returning empty json.");
-    }
-    return isList ? '[]' : '{}';
-  }
 }
